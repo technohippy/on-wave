@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Embed Wave" height="15">
+    <Require feature="wave" /> 
+    <Require feature="dynamic-height" />
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+      <script>
+        function embedWave() {
+          wave.getState().submitDelta({'function':'convert'})
+        }
+        function removeThis() {
+          wave.getState().submitDelta({'function':'remove'})
+        }
+        function initialize() {
+          gadgets.window.adjustHeight();
+        }
+        gadgets.util.registerOnLoadHandler(initialize);
+      </script>
+      <div style="width:100%; text-align:right;">
+        <a href="javascript:embedWave()" style="font-size:60%">[embed]</a>
+        <a href="javascript:removeThis()" style="font-size:60%">[not embed]</a>
+      </div>
+    ]]>
+  </Content>
+</Module>

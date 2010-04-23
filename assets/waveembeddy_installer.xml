@@ -1,0 +1,13 @@
+<extension 
+    name="Wave Embeddy"
+    thumbnailUrl="http://on-wave.appspot.com/assets/waveembeddy_image.png"
+    description="Embed a wave in a wave."> 
+  <author name="Ando Yasushi"/> 
+  <menuHook location="toolbar" text="Add Wave Embeddy"
+      iconUrl="http://on-wave.appspot.com/assets/waveembeddy_icon.png">
+    <annotateSelection key="force_embed_wave" value="yes" />
+    <addParticipants>
+      <participant id="wave3.on-wave@appspot.com" />
+    </addParticipants>
+  </menuHook> 
+</extension> 

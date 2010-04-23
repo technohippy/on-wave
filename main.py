@@ -24,8 +24,28 @@ import os
 
 class MainHandler(webapp.RequestHandler):
   def get(self):
-    self.response.out.write('Hello world!')
+    path = os.path.join(os.path.dirname(__file__), 'index.html')
+    self.response.out.write(template.render(path, { }))
 
+
+def EmbedGadgetWithEncodedWaveId(handler, encoded_wave_id, gadget_filename):
+  wave_id = encoded_wave_id.replace('%21', '!').replace('%2B', '+')
+  wave_server = 'http://wave.google.com/'
+  if wave_id.find('wavesandbox') < 0:
+    wave_server = wave_server + 'wave/'
+  else:
+    wave_server = wave_server + 'a/wavesandbox.com/'
+  path = os.path.join(os.path.dirname(__file__), gadget_filename)
+  handler.response.out.write(template.render(path, {
+    'encoded_wave_id': encoded_wave_id,
+    'wave_id': wave_id,
+    'wave_server': wave_server
+  }))
+
+class EmbedWaveButtonGadgetHandler(webapp.RequestHandler):
+  def get(self):
+    path = os.path.join(os.path.dirname(__file__), 'embed_wave_button_gadget.xml')
+    self.response.out.write(template.render(path, { }))
 
 class EmbedWaveGadgetHandler(webapp.RequestHandler):
   def get(self, encoded_wave_id):
@@ -43,6 +63,7 @@ class EmbedWaveGadgetHandler(webapp.RequestHandler):
 
 def main():
   application = webapp.WSGIApplication([('/', MainHandler),
+                                        ('/embed_wave_button_gadget', EmbedWaveButtonGadgetHandler),
                                         ('/embed_wave_gadget/(.*)', EmbedWaveGadgetHandler)],
                                        debug=True)
   util.run_wsgi_app(application)
