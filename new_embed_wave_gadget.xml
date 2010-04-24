@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs title="Hello Wave" height="300">
+    <Require feature="wave" /> 
+    <Require feature="dynamic-height" />
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+      <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+      <script>
+        google.load('wave', '1');
+        function initializeEmbed() {
+          var wavePanel = new google.wave.WavePanel({
+            target:document.getElementById('waveframe'),
+            rootUrl:'{{ wave_server }}'
+          });
+          wavePanel.loadWave('{{ wave_id }}');
+          gadgets.window.adjustHeight();
+        }
+        google.setOnLoadCallback(initializeEmbed);
+      </script>
+      <div id="waveframe" style="width:100%; height:100%;"></div>
+    ]]>
+  </Content>
+</Module>
